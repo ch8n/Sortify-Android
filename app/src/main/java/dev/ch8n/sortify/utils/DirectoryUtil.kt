@@ -28,8 +28,7 @@ object DirectoryUtil {
     }
 
     fun createSortFolderAndMove(sortifyDir: File) {
-        val downloadDir =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
         downloadDir.listFiles().filter { !it.isDirectory }.forEach { currentFile ->
             val folderName = DirectoryUtil.getSortedDirName(currentFile)
             val sortedFolder = File(sortifyDir.path + File.separator + folderName)

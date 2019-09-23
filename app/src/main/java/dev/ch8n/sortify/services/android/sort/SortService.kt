@@ -23,10 +23,19 @@ class SortService : IntentService("SortService") {
     }
 
     private fun handleSortEvent() {
-        val download = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val download =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
         if (download.isDirectory) {
-            val sortifyDir = File(download.path + separator + SORTIFY_STRING)
+
+            // show forground notification
+            // show broadcast event has started
+            // get broadcast status and show progress on activity
+            // use live data to push progress
+            // when progress completes throw broadcast of complete
+            // and update ui
+
+            val sortifyDir = File(download.path.plus(separator).plus(SORTIFY_STRING))
 
             if (sortifyDir.exists()) {
                 DirectoryUtil.createSortFolderAndMove(sortifyDir)
