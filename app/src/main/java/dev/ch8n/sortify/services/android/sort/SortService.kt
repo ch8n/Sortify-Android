@@ -4,9 +4,10 @@ import android.app.IntentService
 import android.content.Intent
 import android.content.Context
 import android.os.Environment
+import android.util.Log
+import android.widget.Toast
 import java.io.File.separator
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import dev.ch8n.sortify.SORTIFY_STRING
 import dev.ch8n.sortify.utils.DirectoryUtil
 import java.io.File
 
@@ -22,33 +23,18 @@ class SortService : IntentService("SortService") {
     }
 
     private fun handleSortEvent() {
-        val download =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        if (download.isDirectory) {
-            val path = download.listFiles()
-            val isSortifyDirection = path
-                .none { it.isDirectory && it.name.toLowerCase() == "sortify" }
-            if (isSortifyDirection) {
-                //case when its first time
-                // create sortify folder
-                //val directory = File(download.path + separator + "Sortify")
-                //directory.mkdirs()
-                // read files in download folder
-                val extensions = DirectoryUtil.sorifyFolders()
-                // according to files extensions create folders
+        val download = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
-                // move file from one directory to other
-                // show user waring not to force quit may lead to data crouuption
-                // have atleast 500Mb to 1gb space in storage
+        if (download.isDirectory) {
+            val sortifyDir = File(download.path + separator + SORTIFY_STRING)
+
+            if (sortifyDir.exists()) {
+                DirectoryUtil.createSortFolderAndMove(sortifyDir)
             } else {
-                //case when sorify exist new content is there for sort
-                // start a service that so even app exits work doesnt exits
-                // read files in download folder
-                // according to files extensions create folders
-                // move file from one directory to other
-                // show user waring not to force quit may lead to data crouuption
-                // have atleast 500Mb to 1gb space in storage
+                sortifyDir.mkdir()
+                DirectoryUtil.createSortFolderAndMove(sortifyDir)
             }
+
         }
 
     }
