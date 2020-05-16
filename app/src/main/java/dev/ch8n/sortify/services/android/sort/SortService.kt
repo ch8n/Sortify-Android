@@ -49,16 +49,8 @@ class SortService : IntentService("SortService") {
     }
 
     companion object {
-
-        /**
-         * Starts this service to perform action Foo with the given parameters. If
-         * the service is already performing a task this action will be queued.
-         * @see IntentService
-         */
-
-        @JvmStatic
         fun startActionSort(context: Context) {
-            val intent = Intent(context, SortService::class.java).apply {
+            val intent = Intent(context.applicationContext, SortService::class.java).apply {
                 action = ACTION_SORT
             }
             context.startService(intent)
