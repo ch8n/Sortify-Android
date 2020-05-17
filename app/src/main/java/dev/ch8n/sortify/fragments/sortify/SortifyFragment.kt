@@ -16,13 +16,15 @@ class SortifyFragment : BaseFragment() {
     override val fragmentLayout: Int
         get() = R.layout.fragment_sortify
 
+    override val routeName: String
+        get() = TAG
+
     override fun bindDiScope() {
 
     }
 
     override fun setup(view: View) {
-
-
+        
     }
 
     private fun startSortifyService() {

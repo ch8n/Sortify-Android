@@ -3,11 +3,10 @@ package dev.ch8n.sortify.fragments.permission
 import android.os.Bundle
 import android.view.View
 import dev.ch8n.sortify.R
-import dev.ch8n.sortify.utils.STORAGE_READ_WRITE_RQCODE
 import dev.ch8n.sortify.base.BaseFragment
+import dev.ch8n.sortify.utils.STORAGE_READ_WRITE_RQCODE
 import kotlinx.android.synthetic.main.fragment_permission.*
 import org.koin.android.ext.android.getKoin
-import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.bindScope
 import org.koin.androidx.scope.lifecycleScope
 import pub.devrel.easypermissions.AppSettingsDialog
@@ -31,6 +30,9 @@ class PermissionFragment : BaseFragment(), PermissionContract.View,
 
     override val fragmentLayout: Int
         get() = R.layout.fragment_permission
+
+    override val routeName: String
+        get() = TAG
 
     override fun bindDiScope() {
         bindScope(getKoin().createScope<PermissionFragment>())
