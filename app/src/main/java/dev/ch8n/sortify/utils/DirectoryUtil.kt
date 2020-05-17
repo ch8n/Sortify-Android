@@ -2,7 +2,6 @@ package dev.ch8n.sortify.utils
 
 import android.os.Environment
 import android.util.Log
-import dev.ch8n.sortify.SORTIFY_STRING
 import java.io.File
 
 object DirectoryUtil {

@@ -4,10 +4,8 @@ import android.app.IntentService
 import android.content.Intent
 import android.content.Context
 import android.os.Environment
-import android.util.Log
-import android.widget.Toast
 import java.io.File.separator
-import dev.ch8n.sortify.SORTIFY_STRING
+import dev.ch8n.sortify.utils.SORTIFY_STRING
 import dev.ch8n.sortify.utils.DirectoryUtil
 import java.io.File
 

@@ -1,4 +1,4 @@
-package dev.ch8n.sortify
+package dev.ch8n.sortify.utils
 
 import android.content.Context
 import android.widget.Toast

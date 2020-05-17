@@ -1,44 +1,72 @@
 package dev.ch8n.sortify.fragments.permission
 
-import android.Manifest
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-
 import dev.ch8n.sortify.R
-import dev.ch8n.sortify.STORAGE_READ_WRITE_RQCODE
+import dev.ch8n.sortify.utils.STORAGE_READ_WRITE_RQCODE
 import dev.ch8n.sortify.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_permission.*
+import org.koin.android.ext.android.getKoin
+import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.bindScope
+import org.koin.androidx.scope.lifecycleScope
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
-class PermissionFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
+class PermissionFragment : BaseFragment(), PermissionContract.View,
+    EasyPermissions.PermissionCallbacks {
 
     companion object {
         const val TAG = "PermissionFragment"
+        const val PERMISSION_EXTRA = "permissions"
+
+        fun newInstance(permissions: Array<String>): PermissionFragment {
+            return PermissionFragment().apply {
+                arguments = Bundle().apply {
+                    putStringArray(PERMISSION_EXTRA, permissions)
+                }
+            }
+        }
     }
 
     override val fragmentLayout: Int
         get() = R.layout.fragment_permission
 
-    override fun setup(view: View) {
-
-
+    override fun bindDiScope() {
+        bindScope(getKoin().createScope<PermissionFragment>())
     }
 
-    private fun requestPermissions() {
-        //todo get permission from intent
-        val permissions = arrayOf<String>(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
+    private val controller: PermissionContract.Controller by lifecycleScope.inject()
+
+    override fun setup(view: View) {
+        controller.event(PermissionContract.Event.Init)
+    }
+
+    override fun attachInteractions() {
+        view?.run {
+            button_ask_permission.setOnClickListener {
+                controller.event(PermissionContract.Event.OnClickPermissionRequest)
+            }
+        }
+    }
+
+    override val permissions: Array<String>
+        get() = arguments?.getStringArray(PERMISSION_EXTRA) ?: emptyArray()
+
+
+    override fun askPermission() {
         EasyPermissions.requestPermissions(
             this,
-            "Required to read write SD card",
+            "Hi,Please provide the required permission to make the application functional for you!",
             STORAGE_READ_WRITE_RQCODE,
             *permissions
         )
+    }
+
+    override fun retryPermission() {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, permissions.toMutableList())) {
+            AppSettingsDialog.Builder(this).build().show()
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -51,14 +79,13 @@ class PermissionFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            AppSettingsDialog.Builder(this).build().show()
-        }
+        controller.event(PermissionContract.Event.OnPermissionRejected)
     }
+
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        //todo goto home sortify
-
+        controller.event(PermissionContract.Event.OnPermissionApplied)
     }
+
 
 }
