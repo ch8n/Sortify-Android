@@ -6,6 +6,14 @@ import java.io.File
 
 object DirectoryUtil {
 
+    fun getSortifyDirectory(): File = requireNotNull(Environment.getExternalStoragePublicDirectory(
+        Environment.DIRECTORY_DOWNLOADS)
+    )
+
+    fun isSortifyRequired(sortifyDir: File):Boolean {
+        return (sortifyDir.listFiles() ?: emptyArray()).any { it.isFile }
+    }
+
     fun getSortedDirName(file: File): String {
         return when (file.extension) {
             "aif", "cda", "mid", "midi", "mp3", "mpa", "ogg", "wav", "wma", "wpl" -> "audio"

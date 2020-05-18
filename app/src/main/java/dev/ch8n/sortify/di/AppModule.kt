@@ -8,6 +8,9 @@ import dev.ch8n.sortify.fragments.permission.PermissionContract
 import dev.ch8n.sortify.fragments.permission.PermissionController
 import dev.ch8n.sortify.fragments.permission.PermissionFragment
 import dev.ch8n.sortify.fragments.permission.PermissionNavigator
+import dev.ch8n.sortify.fragments.sortify.SortifyContact
+import dev.ch8n.sortify.fragments.sortify.SortifyController
+import dev.ch8n.sortify.fragments.sortify.SortifyFragment
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -28,7 +31,16 @@ val androidPermissionModule = module {
     }
 }
 
+val androidSortifyModule = module {
+    scope<SortifyFragment> {
+        scoped<SortifyContact.View> { get<SortifyFragment>() }
+        //scoped<SortifyContact.Navigator> { PermissionNavigator(get<SortifyFragment>()) }
+        scoped<SortifyContact.Controller> { SortifyController(get()) }
+    }
+}
+
 val AppModules = listOf<Module>(
     androidMainModule,
-    androidPermissionModule
+    androidPermissionModule,
+    androidSortifyModule
 )
