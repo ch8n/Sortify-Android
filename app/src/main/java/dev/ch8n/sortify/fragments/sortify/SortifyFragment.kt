@@ -10,7 +10,6 @@ import dev.ch8n.sortify.utils.setVisible
 import dev.ch8n.sortify.utils.toast
 import kotlinx.android.synthetic.main.fragment_sortify.*
 import org.koin.android.ext.android.getKoin
-import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.bindScope
 import org.koin.androidx.scope.lifecycleScope
 
@@ -41,9 +40,9 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
         return DirectoryUtil.isSortifyRequired(sortifyDir)
     }
 
-    override fun setSortifyRequired() {
+    override fun sortifiedRequired() {
         view?.run {
-            image_sortify.setImageResource(R.drawable.ic_cluttered_content)
+            image_sortify.setImageResource(R.drawable.ic_sort_required)
             button_sortify.setVisible(true)
             button_sortify.setOnClickListener {
                 controller.event(SortifyContact.Event.StartSortify)
@@ -51,16 +50,23 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
         }
     }
 
-    override fun setSortifyInProgress() {
+    override fun sortifiedAlready() {
+        view?.run {
+            image_sortify.setImageResource(R.drawable.ic_sort_already)
+            button_sortify.setVisible(false)
+        }
+    }
+
+    override fun sortifyInProgress() {
         view?.run {
             image_sortify.setImageResource(R.drawable.ic_sort_inprogress)
             button_sortify.setVisible(false)
         }
     }
 
-    override fun setSortifyCompleted() {
+    override fun sortifyCompleted() {
         view?.run {
-            image_sortify.setImageResource(R.drawable.ic_already_organized)
+            image_sortify.setImageResource(R.drawable.ic_sort_completed)
             button_sortify.setVisible(false)
         }
     }

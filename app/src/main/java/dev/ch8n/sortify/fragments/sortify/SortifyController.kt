@@ -17,18 +17,18 @@ class SortifyController(val view: SortifyContact.View) : SortifyContact.Controll
 
     private fun onStartSortify() {
         launch(Dispatchers.Main) {
-            view.setSortifyInProgress()
+            view.sortifyInProgress()
             delay(2000)
-            view.setSortifyCompleted()
+            view.sortifyCompleted()
         }
     }
 
     private fun onInit() {
         val isSortRequired = view.isSortifyRequired()
         if (isSortRequired) {
-            view.setSortifyRequired()
+            view.sortifiedRequired()
         } else {
-            view.setSortifyCompleted()
+            view.sortifyCompleted()
         }
     }
 

@@ -3,12 +3,15 @@ package dev.ch8n.sortify.fragments.sortify
 interface SortifyContact {
 
     interface View {
-        fun isSortifyRequired(): Boolean
         fun startSortifyService()
         fun stopSortifyService()
-        fun setSortifyRequired()
-        fun setSortifyInProgress()
-        fun setSortifyCompleted()
+
+
+        fun isSortifyRequired(): Boolean
+        fun sortifiedRequired()
+        fun sortifiedAlready()
+        fun sortifyInProgress()
+        fun sortifyCompleted()
     }
 
     interface Controller {
