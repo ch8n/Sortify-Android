@@ -2,19 +2,32 @@ package dev.ch8n.sortify.utils
 
 import android.os.Environment
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import java.io.File
 
-object DirectoryUtil {
 
-    fun getSortifyDirectory(): File = requireNotNull(Environment.getExternalStoragePublicDirectory(
-        Environment.DIRECTORY_DOWNLOADS)
+object SortifyUtil {
+
+    val _sortifyService = MutableLiveData<Result<Boolean, Exception>>()
+
+    val observeSortifyService: LiveData<Result<Boolean, Exception>> = _sortifyService
+
+    fun getDownloadDirectory(): File = requireNotNull(
+        Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_DOWNLOADS
+        )
     )
 
-    fun isSortifyRequired(sortifyDir: File):Boolean {
-        return (sortifyDir.listFiles() ?: emptyArray()).any { it.isFile }
+    fun getSortifyDirectory(insideFile: File): File {
+        return File(insideFile.path.plus(File.separator).plus(SORTIFY_STRING))
     }
 
-    fun getSortedDirName(file: File): String {
+    fun isSortifyRequired(sortifyDir: File): Boolean {
+        return (sortifyDir.listFiles() ?: emptyArray()).any { !it.isDirectory }
+    }
+
+    fun getSortedFolderName(file: File): String {
         return when (file.extension) {
             "aif", "cda", "mid", "midi", "mp3", "mpa", "ogg", "wav", "wma", "wpl" -> "audio"
             "7z", "arj", "deb", "pkg", "rar", "rpm", "tar.gz", "gz", "z", "zip" -> "compressed"
@@ -34,19 +47,19 @@ object DirectoryUtil {
         }
     }
 
-    fun createSortFolderAndMove(sortifyDir: File) {
-        val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        downloadDir.listFiles().filter { !it.isDirectory }.forEach { currentFile ->
-            val folderName = DirectoryUtil.getSortedDirName(currentFile)
+    fun sortify(targetDir: File, sortifyDir: File) {
+        val directoryItems = targetDir.listFiles() ?: emptyArray<File>()
+        directoryItems.filter { !it.isDirectory }.forEach { currentFile ->
+            val folderName = getSortedFolderName(currentFile)
             val sortedFolder = File(sortifyDir.path + File.separator + folderName)
             if (!sortedFolder.exists()) {
                 sortedFolder.mkdir()
             }
-            try {
-                currentFile.renameTo(File(sortedFolder.path.plus(File.separator).plus(currentFile.name)))
-            } catch (e: Exception) {
-                Log.e("Error moving", e.localizedMessage)
-            }
+            currentFile.renameTo(
+                File(
+                    sortedFolder.path.plus(File.separator).plus(currentFile.name)
+                )
+            )
         }
     }
 }

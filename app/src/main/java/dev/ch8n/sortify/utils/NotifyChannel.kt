@@ -13,8 +13,8 @@ object NotifyChannel {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val service = NotificationChannel(
                 CHANNEL_ID_SORTIFY_PROCESSING,
-                "Sortify",
-                NotificationManager.IMPORTANCE_LOW
+                "Sortifying...",
+                NotificationManager.IMPORTANCE_HIGH
             )
 
             val notifyManager = NotificationManagerCompat

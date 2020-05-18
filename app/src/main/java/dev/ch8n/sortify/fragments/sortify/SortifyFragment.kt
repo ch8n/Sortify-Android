@@ -1,14 +1,13 @@
 package dev.ch8n.sortify.fragments.sortify
 
 import android.view.View
-
 import dev.ch8n.sortify.R
 import dev.ch8n.sortify.base.BaseFragment
 import dev.ch8n.sortify.services.android.sort.SortService
-import dev.ch8n.sortify.utils.DirectoryUtil
+import dev.ch8n.sortify.utils.SortifyUtil
 import dev.ch8n.sortify.utils.setVisible
 import dev.ch8n.sortify.utils.toast
-import kotlinx.android.synthetic.main.fragment_sortify.*
+import kotlinx.android.synthetic.main.fragment_sortify.view.*
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.scope.bindScope
 import org.koin.androidx.scope.lifecycleScope
@@ -32,17 +31,19 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
     val controller: SortifyContact.Controller by lifecycleScope.inject()
 
     override fun setup(view: View) {
-        controller.event(SortifyContact.Event.Init)
+        controller.event(SortifyContact.Event.Init(this))
+        controller.event(SortifyContact.Event.CheckSortify)
     }
 
     override fun isSortifyRequired(): Boolean {
-        val sortifyDir = DirectoryUtil.getSortifyDirectory()
-        return DirectoryUtil.isSortifyRequired(sortifyDir)
+        val sortifyDir = SortifyUtil.getDownloadDirectory()
+        return SortifyUtil.isSortifyRequired(sortifyDir)
     }
 
     override fun sortifiedRequired() {
         view?.run {
             image_sortify.setImageResource(R.drawable.ic_sort_required)
+            button_sortify.text = "Let's Sortify"
             button_sortify.setVisible(true)
             button_sortify.setOnClickListener {
                 controller.event(SortifyContact.Event.StartSortify)
@@ -69,21 +70,34 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
         view?.run {
             pulsator.stop()
             image_sortify.setImageResource(R.drawable.ic_sort_completed)
-            button_sortify.setVisible(false)
+            button_sortify.text = "it's sortified"
+            button_sortify.setVisible(true)
+            button_sortify.setOnClickListener {
+                controller.event(SortifyContact.Event.CheckSortify)
+            }
+        }
+    }
+
+
+    override fun sortifyError(error: Exception) {
+        view?.run {
+            pulsator.stop()
+            image_sortify.setImageResource(R.drawable.ic_error)
+            text_message.text = error.message
+            button_sortify.text = "retry"
+            button_sortify.setVisible(true)
+            button_sortify.setOnClickListener {
+                controller.event(SortifyContact.Event.CheckSortify)
+            }
         }
     }
 
     override fun startSortifyService() {
-        "todo read write SD card".toast(requireContext())
         SortService.startActionSort(requireContext())
     }
 
     override fun stopSortifyService() {
-        TODO("Not yet implemented")
+        SortService.stopService(requireContext())
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        controller.event(SortifyContact.Event.Destroy)
-    }
 }

@@ -55,7 +55,7 @@
         app:pulse_repeat="0"
         app:pulse_color="@color/colorPrimaryDark"
         app:pulse_startFromScratch="false"
-        app:pulse_interpolator="Linear"/>
+        app:pulse_interpolator="AccelerateDecelerate"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_sortify"
