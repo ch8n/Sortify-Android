@@ -41,6 +41,22 @@
         app:layout_constraintTop_toBottomOf="@id/text_message"
         app:srcCompat="@drawable/ic_sort_required" />
 
+    <pl.bclogic.pulsator4droid.library.PulsatorLayout
+        android:id="@+id/pulsator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:pulse_count="4"
+        android:alpha="0.2"
+        app:layout_constraintStart_toStartOf="@id/image_sortify"
+        app:layout_constraintEnd_toEndOf="@id/image_sortify"
+        app:layout_constraintTop_toTopOf="@id/image_sortify"
+        app:layout_constraintBottom_toBottomOf="@id/image_sortify"
+        app:pulse_duration="1000"
+        app:pulse_repeat="0"
+        app:pulse_color="@color/colorPrimaryDark"
+        app:pulse_startFromScratch="false"
+        app:pulse_interpolator="Linear"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_sortify"
         style="?attr/materialButtonOutlinedStyle"

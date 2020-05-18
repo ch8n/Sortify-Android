@@ -18,7 +18,7 @@ class SortifyController(val view: SortifyContact.View) : SortifyContact.Controll
     private fun onStartSortify() {
         launch(Dispatchers.Main) {
             view.sortifyInProgress()
-            delay(2000)
+            delay(5000)
             view.sortifyCompleted()
         }
     }

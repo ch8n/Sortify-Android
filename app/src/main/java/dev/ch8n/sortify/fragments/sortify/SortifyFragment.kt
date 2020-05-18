@@ -59,6 +59,7 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
 
     override fun sortifyInProgress() {
         view?.run {
+            pulsator.start()
             image_sortify.setImageResource(R.drawable.ic_sort_inprogress)
             button_sortify.setVisible(false)
         }
@@ -66,6 +67,7 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
 
     override fun sortifyCompleted() {
         view?.run {
+            pulsator.stop()
             image_sortify.setImageResource(R.drawable.ic_sort_completed)
             button_sortify.setVisible(false)
         }
