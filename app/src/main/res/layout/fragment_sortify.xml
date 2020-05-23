@@ -34,7 +34,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_sortify"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         android:padding="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,28 +45,29 @@
         android:id="@+id/pulsator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:pulse_count="4"
         android:alpha="0.2"
-        app:layout_constraintStart_toStartOf="@id/image_sortify"
-        app:layout_constraintEnd_toEndOf="@id/image_sortify"
-        app:layout_constraintTop_toTopOf="@id/image_sortify"
         app:layout_constraintBottom_toBottomOf="@id/image_sortify"
-        app:pulse_duration="1000"
-        app:pulse_repeat="0"
+        app:layout_constraintEnd_toEndOf="@id/image_sortify"
+        app:layout_constraintStart_toStartOf="@id/image_sortify"
+        app:layout_constraintTop_toTopOf="@id/image_sortify"
         app:pulse_color="@color/colorPrimaryDark"
-        app:pulse_startFromScratch="false"
-        app:pulse_interpolator="AccelerateDecelerate"/>
+        app:pulse_count="4"
+        app:pulse_duration="1000"
+        app:pulse_interpolator="AccelerateDecelerate"
+        app:pulse_repeat="0"
+        app:pulse_startFromScratch="false" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_sortify"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="16dp"
         android:text="Let's organise"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_sortify" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
