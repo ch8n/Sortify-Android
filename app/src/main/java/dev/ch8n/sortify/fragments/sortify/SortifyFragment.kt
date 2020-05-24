@@ -1,17 +1,22 @@
 package dev.ch8n.sortify.fragments.sortify
 
-import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
+import android.provider.DocumentsContract
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import androidx.core.net.toUri
+import com.google.firebase.inappmessaging.FirebaseInAppMessaging
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
+import dev.ch8n.sortify.BuildConfig
 import dev.ch8n.sortify.R
 import dev.ch8n.sortify.base.BaseFragment
+import dev.ch8n.sortify.logEvents
 import dev.ch8n.sortify.services.android.sort.SortService
 import dev.ch8n.sortify.utils.SortifyUtil
 import dev.ch8n.sortify.utils.setVisible
+import dev.ch8n.sortify.utils.toToast
 import kotlinx.android.synthetic.main.fragment_sortify.view.*
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.scope.bindScope
@@ -37,25 +42,33 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
     val controller: SortifyContact.Controller by lifecycleScope.inject()
 
     override fun setup(view: View) {
+        logEvents("launch_sortify_fragment")
         controller.event(SortifyContact.Event.Init(this))
         controller.event(SortifyContact.Event.CheckSortify)
     }
 
     override fun checkForceUpdate() {
         val remoteConfig = Firebase.remoteConfig
-        val isForceUpdate = remoteConfig.getBoolean("force_update")
-        if (isForceUpdate) {
-            getForceUpdateDialog().show()
+        val appVersionCode = remoteConfig.getLong("active_version_code")
+        val isActiveVersionCode = appVersionCode == BuildConfig.VERSION_CODE.toLong()
+        if (!isActiveVersionCode) {
+            forceUpdateDialog().show()
         }
     }
 
-    fun getForceUpdateDialog(): AlertDialog {
+    private fun forceUpdateDialog(): AlertDialog {
         return AlertDialog.Builder(requireContext())
             .setTitle("Urgent Update")
             .setMessage("Please update the application to keep it functional!")
             .setCancelable(false)
-            .setPositiveButton("Sure") { dialog, id ->
+            .setNegativeButton("Close") { dialog, id ->
+                logEvents("click_sortify_version_update_dismissed")
+                dialog.dismiss()
                 requireActivity().finish()
+            }.setPositiveButton("Sure") { dialog, id ->
+                logEvents("click_sortify_version_update_download")
+                dialog.dismiss()
+                "todo open playstore link".toToast(requireActivity())
             }.create()
     }
 
@@ -66,6 +79,7 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
 
     override fun sortifiedRequired() {
         view?.run {
+            logEvents("launch_sortify_required_fragment")
             image_sortify.setImageResource(R.drawable.ic_sort_required)
             button_sortify.text = "Let's Sortify"
             button_sortify.setVisible(true)
@@ -77,13 +91,24 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
 
     override fun sortifiedAlready() {
         view?.run {
+            logEvents("launch_sortify_already_fragment")
             image_sortify.setImageResource(R.drawable.ic_sort_already)
             button_sortify.setVisible(false)
+            //todo search to achive this  ==> open downlaod folder
+//            button_sortify.text = "Downloads"
+//            button_sortify.setOnClickListener {
+//                val sortifyUri = Uri.parse(SortifyUtil.getDownloadDirectory().path)
+//                val intent = Intent(Intent.ACTION_GET_CONTENT)
+//                intent.addCategory(Intent.CATEGORY_OPENABLE);
+//                intent.setDataAndType(sortifyUri, "*/*");
+//                startActivity(Intent.createChooser(intent, "Open folder"))
+//            }
         }
     }
 
     override fun sortifyInProgress() {
         view?.run {
+            logEvents("launch_sortify_processing_fragment")
             pulsator.start()
             image_sortify.setImageResource(R.drawable.ic_sort_inprogress)
             button_sortify.setVisible(false)
@@ -92,6 +117,7 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
 
     override fun sortifyCompleted() {
         view?.run {
+            logEvents("launch_sortify_completed_fragment")
             pulsator.stop()
             image_sortify.setImageResource(R.drawable.ic_sort_completed)
             button_sortify.text = "it's sortified"
@@ -105,6 +131,7 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
 
     override fun sortifyError(error: Exception) {
         view?.run {
+            logEvents("launch_sortify_error_fragment")
             pulsator.stop()
             image_sortify.setImageResource(R.drawable.ic_error)
             text_message.text = error.message

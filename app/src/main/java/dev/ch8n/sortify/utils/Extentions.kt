@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.Toast
 
 
-inline fun String.toast(context: Context) {
+inline fun String.toToast(context: Context) {
     Toast.makeText(context, this, Toast.LENGTH_SHORT).show()
 }
 

@@ -1,6 +1,7 @@
 package dev.ch8n.sortify.services.android.notification
 
 import android.R
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -11,7 +12,6 @@ class FirebaseNotifications : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-
         val firebaseNotif = remoteMessage.notification
         if (firebaseNotif != null) {
             showNotification(firebaseNotif)
@@ -34,5 +34,10 @@ class FirebaseNotifications : FirebaseMessagingService() {
         NotificationManagerCompat.from(applicationContext).let {
             it.notify(1, notification)
         }
+    }
+
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        Log.e("firebase", "token : $token")
     }
 }

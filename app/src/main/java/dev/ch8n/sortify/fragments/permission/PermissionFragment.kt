@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import dev.ch8n.sortify.R
 import dev.ch8n.sortify.base.BaseFragment
+import dev.ch8n.sortify.logEvents
 import dev.ch8n.sortify.utils.STORAGE_READ_WRITE_RQCODE
 import kotlinx.android.synthetic.main.fragment_permission.*
 import org.koin.android.ext.android.getKoin
@@ -41,12 +42,14 @@ class PermissionFragment : BaseFragment(), PermissionContract.View,
     private val controller: PermissionContract.Controller by lifecycleScope.inject()
 
     override fun setup(view: View) {
+        logEvents("launch_permission_fragment")
         controller.event(PermissionContract.Event.Init)
     }
 
     override fun attachInteractions() {
         view?.run {
             button_ask_permission.setOnClickListener {
+                logEvents("click_permission_apply")
                 controller.event(PermissionContract.Event.OnClickPermissionRequest)
             }
         }
@@ -66,6 +69,7 @@ class PermissionFragment : BaseFragment(), PermissionContract.View,
     }
 
     override fun retryPermission() {
+        logEvents("click_permission_retry")
         if (EasyPermissions.somePermissionPermanentlyDenied(this, permissions.toMutableList())) {
             AppSettingsDialog.Builder(this).build().show()
         }
@@ -81,11 +85,13 @@ class PermissionFragment : BaseFragment(), PermissionContract.View,
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        logEvents("click_permission_denied")
         controller.event(PermissionContract.Event.OnPermissionRejected)
     }
 
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        logEvents("on_permission_applied")
         controller.event(PermissionContract.Event.OnPermissionApplied)
     }
 
