@@ -32,6 +32,8 @@ class SortifyController(val view: SortifyContact.View) : SortifyContact.Controll
                 }
             }
         })
+
+        view.checkForceUpdate()
     }
 
     private fun onStartSortify() {

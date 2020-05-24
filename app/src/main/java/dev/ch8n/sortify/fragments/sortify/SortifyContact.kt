@@ -15,6 +15,7 @@ interface SortifyContact {
         fun sortifyInProgress()
         fun sortifyCompleted()
         fun sortifyError(error: Exception)
+        fun checkForceUpdate()
     }
 
     interface Controller {

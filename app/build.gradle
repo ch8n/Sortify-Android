@@ -59,7 +59,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     implementation 'com.google.firebase:firebase-perf:19.0.7'
     implementation 'com.google.firebase:firebase-messaging:20.2.0'
-    implementation('com.google.firebase:firebase-inappmessaging-display-ktx:19.0.7')
+    implementation 'com.google.firebase:firebase-inappmessaging-display-ktx:19.0.7'
+    implementation 'com.google.firebase:firebase-config-ktx:19.1.4'
 
     //+++++++++++ JetPack +++++++++++++++//
     def work_version = "2.3.4"

@@ -1,16 +1,22 @@
 package dev.ch8n.sortify.fragments.sortify
 
+import android.content.DialogInterface
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import dev.ch8n.sortify.R
 import dev.ch8n.sortify.base.BaseFragment
 import dev.ch8n.sortify.services.android.sort.SortService
 import dev.ch8n.sortify.utils.SortifyUtil
 import dev.ch8n.sortify.utils.setVisible
-import dev.ch8n.sortify.utils.toast
 import kotlinx.android.synthetic.main.fragment_sortify.view.*
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.scope.bindScope
 import org.koin.androidx.scope.lifecycleScope
+
 
 class SortifyFragment : BaseFragment(), SortifyContact.View {
 
@@ -33,6 +39,24 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
     override fun setup(view: View) {
         controller.event(SortifyContact.Event.Init(this))
         controller.event(SortifyContact.Event.CheckSortify)
+    }
+
+    override fun checkForceUpdate() {
+        val remoteConfig = Firebase.remoteConfig
+        val isForceUpdate = remoteConfig.getBoolean("force_update")
+        if (isForceUpdate) {
+            getForceUpdateDialog().show()
+        }
+    }
+
+    fun getForceUpdateDialog(): AlertDialog {
+        return AlertDialog.Builder(requireContext())
+            .setTitle("Urgent Update")
+            .setMessage("Please update the application to keep it functional!")
+            .setCancelable(false)
+            .setPositiveButton("Sure") { dialog, id ->
+                requireActivity().finish()
+            }.create()
     }
 
     override fun isSortifyRequired(): Boolean {
