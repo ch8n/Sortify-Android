@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "150805361625",
+    "firebase_url": "https://sortify-9e705.firebaseio.com",
+    "project_id": "sortify-9e705",
+    "storage_bucket": "sortify-9e705.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150805361625:android:5302d65d9b13cb29d85fc8",
+        "android_client_info": {
+          "package_name": "dev.ch8n.sortify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150805361625-81itj9dc9a5rv2mkp93cvu81pqu568qc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.ch8n.sortify",
+            "certificate_hash": "9df9f2f0a6314a25c1cb30805df5e80da7e28772"
+          }
+        },
+        {
+          "client_id": "150805361625-o6ggb1tn5ohedmv1ri9sie3kr62kgg37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0uCDihTefk4g5Zb3KCtLlbeBzV3i2DuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150805361625-o6ggb1tn5ohedmv1ri9sie3kr62kgg37.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
