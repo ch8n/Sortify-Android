@@ -1,5 +1,6 @@
 package dev.ch8n.sortify.utils
 
+import android.Manifest
 import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -12,6 +13,11 @@ object SortifyUtil {
     val _sortifyService = MutableLiveData<Result<Boolean, Exception>>()
 
     val observeSortifyService: LiveData<Result<Boolean, Exception>> = _sortifyService
+
+    val appPermissions = arrayOf<String>(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
 
     fun getDownloadDirectory(): File = requireNotNull(
         Environment.getExternalStoragePublicDirectory(

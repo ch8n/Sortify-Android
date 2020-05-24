@@ -21,7 +21,6 @@ object NotifyChannel {
                 .from(context.applicationContext)
 
             notifyManager.createNotificationChannel(service)
-
         }
     }
 }

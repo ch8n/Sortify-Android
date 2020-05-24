@@ -28,6 +28,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -40,6 +47,12 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+
+    //+++++++++++ JetPack +++++++++++++++//
+    def work_version = "2.3.4"
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    implementation "androidx.work:work-gcm:$work_version"
+    androidTestImplementation "androidx.work:work-testing:$work_version"
 
     //+++++++++++ Design +++++++++++++++//
     implementation 'pl.bclogic:pulsator4droid:1.0.3'

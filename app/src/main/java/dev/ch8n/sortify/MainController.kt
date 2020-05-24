@@ -1,6 +1,7 @@
 package dev.ch8n.sortify
 
 import android.Manifest
+import dev.ch8n.sortify.utils.SortifyUtil
 
 class MainController(
     private val view: MainContract.View,
@@ -23,10 +24,7 @@ class MainController(
     }
 
     private fun handleInit() {
-        val permissions = arrayOf<String>(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
+        val permissions = SortifyUtil.appPermissions
         view.checkPermissions(permissions)
     }
 

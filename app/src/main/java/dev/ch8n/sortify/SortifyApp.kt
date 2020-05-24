@@ -2,6 +2,7 @@ package dev.ch8n.sortify
 
 import android.app.Application
 import dev.ch8n.sortify.di.AppModules
+import dev.ch8n.sortify.services.android.notification.SortifyRequireRequest
 import dev.ch8n.sortify.utils.NotifyChannel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -13,6 +14,8 @@ class SortifyApp : Application() {
         super.onCreate()
 
         NotifyChannel.createNotifyChannels(this)
+
+        SortifyRequireRequest.setPeriodicNotificationk(this)
 
         startKoin {
             androidLogger()
