@@ -59,9 +59,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     implementation 'com.google.firebase:firebase-perf:19.0.7'
     implementation 'com.google.firebase:firebase-messaging:20.2.0'
-    implementation('com.google.firebase:firebase-inappmessaging-display-ktx:19.0.7') {
-        exclude group: 'com.google.guava'
-    }
+    implementation('com.google.firebase:firebase-inappmessaging-display-ktx:19.0.7')
 
     //+++++++++++ JetPack +++++++++++++++//
     def work_version = "2.3.4"
@@ -87,6 +85,7 @@ dependencies {
 
     //+++++++++++ Utils +++++++++++++++//
     implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation group: 'com.google.guava', name: 'guava', version: '27.0.1-android'
 
     //+++++++++++ Testing +++++++++++++++//
     testImplementation 'junit:junit:4.12'
