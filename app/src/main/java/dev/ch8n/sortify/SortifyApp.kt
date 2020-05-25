@@ -3,7 +3,6 @@ package dev.ch8n.sortify
 import android.app.Application
 import android.os.Bundle
 import android.util.Log
-import android.util.StatsLog.logEvent
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
@@ -26,7 +25,7 @@ class SortifyApp : Application() {
 
         logEvents("app_launch")
         NotifyChannel.createNotifyChannels(this)
-        SortifyRequireRequest.setPeriodicNotificationk(this)
+        SortifyRequireRequest.setPeriodicNotification(this)
         initFirebaseRemoteConfig()
         if (BuildConfig.DEBUG) {
             logFirebaseToken()

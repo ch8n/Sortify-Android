@@ -7,16 +7,36 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dev.ch8n.sortify.utils.NotifyChannel
+import dev.ch8n.sortify.utils.toToast
 
 class FirebaseNotifications : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-        val firebaseNotif = remoteMessage.notification
-        if (firebaseNotif != null) {
-            showNotification(firebaseNotif)
+
+        when {
+            remoteMessage.data.isNotEmpty() -> handleSilentPush(remoteMessage.data)
+            remoteMessage.notification != null -> handlePushNotification(
+                requireNotNull(
+                    remoteMessage.notification
+                )
+            )
         }
 
+    }
+
+    private fun handlePushNotification(notification: RemoteMessage.Notification) {
+        showNotification(notification)
+    }
+
+    private fun handleSilentPush(data: Map<String, String>) {
+        Log.e("firebase", "silent notification : ${data.keys.joinToString(",")}")
+        if (data.isNotEmpty()) {
+            val isCheckRequired = data.get("checkStortify")?.toBoolean() ?: false
+            if (isCheckRequired) {
+                SortifyRequireRequest.setOneTimeNotification(applicationContext)
+            }
+        }
     }
 
     private fun showNotification(firebaseNotif: RemoteMessage.Notification) {

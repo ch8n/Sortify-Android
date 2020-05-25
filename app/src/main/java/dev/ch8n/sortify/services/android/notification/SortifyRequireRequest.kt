@@ -4,10 +4,7 @@ import android.R
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.Worker
-import androidx.work.WorkerParameters
+import androidx.work.*
 import dev.ch8n.sortify.utils.NotifyChannel
 import dev.ch8n.sortify.utils.SortifyUtil
 import pub.devrel.easypermissions.EasyPermissions
@@ -51,7 +48,7 @@ class SortifyRequireRequest(appContext: Context, workerParams: WorkerParameters)
 
     companion object {
 
-        fun setPeriodicNotificationk(appContext: Context) {
+        fun setPeriodicNotification(appContext: Context) {
             val repeateInterval = 1L
 
             val sortifyPerodicCheck = PeriodicWorkRequestBuilder<SortifyRequireRequest>(
@@ -60,6 +57,13 @@ class SortifyRequireRequest(appContext: Context, workerParams: WorkerParameters)
             ).build()
 
             WorkManager.getInstance(appContext).enqueue(sortifyPerodicCheck)
+        }
+
+        fun setOneTimeNotification(appContext: Context) {
+            val sortifyOneTimeCheck = OneTimeWorkRequestBuilder<SortifyRequireRequest>()
+                .build()
+
+            WorkManager.getInstance(appContext).enqueue(sortifyOneTimeCheck)
         }
 
     }
