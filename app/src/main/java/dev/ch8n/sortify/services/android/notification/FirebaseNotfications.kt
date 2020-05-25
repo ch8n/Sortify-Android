@@ -15,7 +15,9 @@ class FirebaseNotifications : FirebaseMessagingService() {
         super.onMessageReceived(remoteMessage)
 
         when {
-            remoteMessage.data.isNotEmpty() -> handleSilentPush(remoteMessage.data)
+            remoteMessage.data.isNotEmpty() && remoteMessage.notification == null -> handleSilentPush(
+                remoteMessage.data
+            )
             remoteMessage.notification != null -> handlePushNotification(
                 requireNotNull(
                     remoteMessage.notification
