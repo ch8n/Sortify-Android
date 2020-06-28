@@ -17,7 +17,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
-
 class SortifyApp : Application() {
 
     override fun onCreate() {
@@ -52,41 +51,41 @@ class SortifyApp : Application() {
 
     private fun initFirebaseRemoteConfig() {
 
-        //todo release - 1.0 add silent push notification that starts check for chorne job for sortify notficiation
+        // todo release - 1.0 add silent push notification that starts check for chorne job for sortify notficiation
 
-        //todo release - 1.0 add analytics events => track notification clicks and donation and protfolio
+        // todo release - 1.0 add analytics events => track notification clicks and donation and protfolio
 
-        //todo release - 1.0 add open source notice
+        // todo release - 1.0 add open source notice
 
-        //todo release - 1.0 add privacy policy and terms and condition
+        // todo release - 1.0 add privacy policy and terms and condition
 
-        //todo add portfolio section in UI
+        // todo add portfolio section in UI
 
-        //todo release - 1.0 add admob ads in the app
+        // todo release - 1.0 add admob ads in the app
 
-        //todo release - 1.0 add donation payment mode in app (in app purchase)
+        // todo release - 1.0 add donation payment mode in app (in app purchase)
 
-        //todo release - 1.0 fix inApp messaging on app open
+        // todo release - 1.0 fix inApp messaging on app open
 
-        //todo todo add content strings using firebase remote
+        // todo todo add content strings using firebase remote
 
-        //todo release - 1.0 add google login ==> use social id as unique identifier for donation tracking
-        //todo release - 1.0 add firestore database
-        //todo release - 1.0 keep a json with donation and user id , if donated dont show donate dialog
+        // todo release - 1.0 add google login ==> use social id as unique identifier for donation tracking
+        // todo release - 1.0 add firestore database
+        // todo release - 1.0 keep a json with donation and user id , if donated dont show donate dialog
 
-        //todo google ways to montize app
+        // todo google ways to montize app
 
-        //todo add pro feature ==> ability to select folder to sortify
+        // todo add pro feature ==> ability to select folder to sortify
 
-        //todo write test cases
+        // todo write test cases
 
-        //todo release - 1.0 use ab testing
-        //todo release - 1.0 use dynamic app to send user on my protfolio
+        // todo release - 1.0 use ab testing
+        // todo release - 1.0 use dynamic app to send user on my protfolio
 
-        //todo explore debug view and stream view
+        // todo explore debug view and stream view
 
-        //todo send welcome email after sortify installed
-        //todo add tranlation support
+        // todo send welcome email after sortify installed
+        // todo add tranlation support
 
         val remoteConfig = Firebase.remoteConfig
         val remoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
@@ -111,4 +110,3 @@ fun BaseActivity.logEvents(event: String, bundle: Bundle = Bundle.EMPTY) {
 fun BaseFragment.logEvents(event: String, bundle: Bundle = Bundle.EMPTY) {
     FirebaseAnalytics.getInstance(requireActivity().applicationContext).logEvent(event, bundle)
 }
-

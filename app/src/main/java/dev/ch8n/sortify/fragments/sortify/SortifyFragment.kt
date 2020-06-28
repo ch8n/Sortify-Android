@@ -1,12 +1,7 @@
 package dev.ch8n.sortify.fragments.sortify
 
-import android.content.Intent
-import android.net.Uri
-import android.provider.DocumentsContract
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.core.net.toUri
-import com.google.firebase.inappmessaging.FirebaseInAppMessaging
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import dev.ch8n.sortify.BuildConfig
@@ -21,7 +16,6 @@ import kotlinx.android.synthetic.main.fragment_sortify.view.*
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.scope.bindScope
 import org.koin.androidx.scope.lifecycleScope
-
 
 class SortifyFragment : BaseFragment(), SortifyContact.View {
 
@@ -94,7 +88,7 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
             logEvents("launch_sortify_already_fragment")
             image_sortify.setImageResource(R.drawable.ic_sort_already)
             button_sortify.setVisible(false)
-            //todo search to achive this  ==> open downlaod folder
+            // todo search to achive this  ==> open downlaod folder
 //            button_sortify.text = "Downloads"
 //            button_sortify.setOnClickListener {
 //                val sortifyUri = Uri.parse(SortifyUtil.getDownloadDirectory().path)
@@ -128,7 +122,6 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
         }
     }
 
-
     override fun sortifyError(error: Exception) {
         view?.run {
             logEvents("launch_sortify_error_fragment")
@@ -150,5 +143,4 @@ class SortifyFragment : BaseFragment(), SortifyContact.View {
     override fun stopSortifyService() {
         SortService.stopService(requireContext())
     }
-
 }

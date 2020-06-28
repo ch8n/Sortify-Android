@@ -14,7 +14,6 @@ import dev.ch8n.sortify.fragments.sortify.SortifyFragment
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-
 val androidMainModule = module {
     scope<MainActivity> {
         scoped<MainContract.View> { get<MainActivity>() }
@@ -34,7 +33,7 @@ val androidPermissionModule = module {
 val androidSortifyModule = module {
     scope<SortifyFragment> {
         scoped<SortifyContact.View> { get<SortifyFragment>() }
-        //scoped<SortifyContact.Navigator> { PermissionNavigator(get<SortifyFragment>()) }
+        // scoped<SortifyContact.Navigator> { PermissionNavigator(get<SortifyFragment>()) }
         scoped<SortifyContact.Controller> { SortifyController(get()) }
     }
 }

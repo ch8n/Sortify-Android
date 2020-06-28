@@ -14,8 +14,5 @@ sealed class Result<out V, out E> {
             } catch (e: Exception) {
                 Error(e)
             }
-
     }
-
-
 }

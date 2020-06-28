@@ -17,5 +17,4 @@ class PermissionNavigator(
             .add(requireFragmentContainer().id, SortifyFragment(), SortifyFragment.TAG)
             .commit()
     }
-
 }

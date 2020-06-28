@@ -4,15 +4,13 @@ import android.R
 import android.app.IntentService
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import dev.ch8n.sortify.utils.NotifyChannel
 import dev.ch8n.sortify.utils.Result
 import dev.ch8n.sortify.utils.SortifyUtil
-import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
-
+import kotlinx.coroutines.*
 
 private const val ACTION_SORT = "dev.ch8n.sortify.services.android.sort.action.SORT"
 
@@ -76,5 +74,4 @@ class SortService : IntentService("SortService"), CoroutineScope {
             val result = Result.build { throw throwable }
             SortifyUtil._sortifyService.postValue(result)
         }
-
 }

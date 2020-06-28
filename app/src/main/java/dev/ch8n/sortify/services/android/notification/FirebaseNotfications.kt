@@ -7,7 +7,6 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dev.ch8n.sortify.utils.NotifyChannel
-import dev.ch8n.sortify.utils.toToast
 
 class FirebaseNotifications : FirebaseMessagingService() {
 
@@ -24,7 +23,6 @@ class FirebaseNotifications : FirebaseMessagingService() {
                 )
             )
         }
-
     }
 
     private fun handlePushNotification(notification: RemoteMessage.Notification) {

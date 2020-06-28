@@ -8,7 +8,6 @@ interface SortifyContact {
         fun startSortifyService()
         fun stopSortifyService()
 
-
         fun isSortifyRequired(): Boolean
         fun sortifiedRequired()
         fun sortifiedAlready()

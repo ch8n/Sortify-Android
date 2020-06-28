@@ -7,8 +7,8 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.work.*
 import dev.ch8n.sortify.utils.NotifyChannel
 import dev.ch8n.sortify.utils.SortifyUtil
-import pub.devrel.easypermissions.EasyPermissions
 import java.util.concurrent.TimeUnit
+import pub.devrel.easypermissions.EasyPermissions
 
 class SortifyRequireRequest(appContext: Context, workerParams: WorkerParameters) :
     Worker(appContext, workerParams) {
@@ -40,7 +40,6 @@ class SortifyRequireRequest(appContext: Context, workerParams: WorkerParameters)
                     it.notify(1, notification)
                 }
             }
-
         }
 
         return Result.success()
@@ -65,7 +64,5 @@ class SortifyRequireRequest(appContext: Context, workerParams: WorkerParameters)
 
             WorkManager.getInstance(appContext).enqueue(sortifyOneTimeCheck)
         }
-
     }
-
 }

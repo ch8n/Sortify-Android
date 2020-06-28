@@ -31,5 +31,4 @@ abstract class BaseNavigator(private val baseActivity: FragmentActivity) {
             throw IllegalStateException("Host activity must have extend BaseActivity")
         }
     }
-
 }

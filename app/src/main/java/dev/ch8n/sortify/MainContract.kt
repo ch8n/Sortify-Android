@@ -20,5 +20,4 @@ interface MainContract {
         data class OnAskPermission(val permission: Array<String>) : Event()
         object OnPermissionApplied : Event()
     }
-
 }

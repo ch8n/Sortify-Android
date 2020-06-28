@@ -1,7 +1,5 @@
 package dev.ch8n.sortify.fragments.permission
 
-import dev.ch8n.sortify.MainContract
-
 interface PermissionContract {
 
     interface View {

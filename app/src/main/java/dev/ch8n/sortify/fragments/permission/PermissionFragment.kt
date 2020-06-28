@@ -58,7 +58,6 @@ class PermissionFragment : BaseFragment(), PermissionContract.View,
     override val permissions: Array<String>
         get() = arguments?.getStringArray(PERMISSION_EXTRA) ?: emptyArray()
 
-
     override fun askPermission() {
         EasyPermissions.requestPermissions(
             this,
@@ -89,11 +88,8 @@ class PermissionFragment : BaseFragment(), PermissionContract.View,
         controller.event(PermissionContract.Event.OnPermissionRejected)
     }
 
-
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         logEvents("on_permission_applied")
         controller.event(PermissionContract.Event.OnPermissionApplied)
     }
-
-
 }

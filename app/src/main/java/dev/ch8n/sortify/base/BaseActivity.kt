@@ -3,12 +3,10 @@ package dev.ch8n.sortify.base
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import dev.ch8n.sortify.R
 import org.koin.ext.scope
 
 abstract class BaseActivity : AppCompatActivity() {
-
 
     abstract val activityLayout: Int
     abstract fun attachDiScope()
@@ -29,6 +27,4 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onDestroy()
         scope.close()
     }
-
-
 }

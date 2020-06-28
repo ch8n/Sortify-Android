@@ -16,7 +16,8 @@ abstract class BaseFragment : Fragment() {
     abstract fun bindDiScope()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         bindDiScope()
@@ -28,12 +29,10 @@ abstract class BaseFragment : Fragment() {
         setup(view)
     }
 
-
     abstract fun setup(view: View)
 
     override fun onDestroyView() {
         super.onDestroyView()
         scope.close()
     }
-
 }

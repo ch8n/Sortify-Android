@@ -1,14 +1,10 @@
 package dev.ch8n.sortify.utils
 
 import android.Manifest
-import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.analytics.FirebaseAnalytics
 import java.io.File
-
 
 object SortifyUtil {
 

@@ -1,6 +1,5 @@
 package dev.ch8n.sortify
 
-import android.Manifest
 import dev.ch8n.sortify.utils.SortifyUtil
 
 class MainController(
@@ -27,5 +26,4 @@ class MainController(
         val permissions = SortifyUtil.appPermissions
         view.checkPermissions(permissions)
     }
-
 }

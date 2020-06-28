@@ -1,16 +1,10 @@
 package dev.ch8n.sortify
 
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
 import dev.ch8n.sortify.base.BaseActivity
-import dev.ch8n.sortify.services.android.notification.SortifyRequireRequest
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.scope.bindScope
 import org.koin.androidx.scope.lifecycleScope
 import pub.devrel.easypermissions.EasyPermissions
-import java.util.concurrent.TimeUnit
-
 
 class MainActivity : BaseActivity(), MainContract.View {
 
@@ -34,7 +28,4 @@ class MainActivity : BaseActivity(), MainContract.View {
             controller.event(MainContract.Event.OnAskPermission(permission))
         }
     }
-
-
 }
-

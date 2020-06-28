@@ -20,6 +20,4 @@ class MainNavigator(activity: FragmentActivity) : BaseNavigator(activity), MainC
             .add(requireFragmentContainer().id, sortifyFragment, SortifyFragment.TAG)
             .commit()
     }
-
-
 }
